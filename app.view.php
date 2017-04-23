@@ -28,18 +28,23 @@ class appView extends app
 		if ($oMenuItems->data)
 		{
 			$this->add('menu_srl',$menu_srl);
-			// $oMenuItems->data = parent_sort($oMenuItems->data);
 			
+			$menu_items = [];
 			foreach ($oMenuItems->data as $key => $menu)
 			{
 				$moduleInfo = $oModuleModel->getModuleInfoByMenuItemSrl($menu->menu_item_srl);
-				$menu->module = $moduleInfo->module;
+				$menu_item->module = $moduleInfo->module;
 				
-				// for Simplestrap Layout
-				$menu->name = explode('|fa-', $menu->name)[0];
+				$menu_item->name = $menu->name; // explode('|fa-', $menu->name)[0]; (for Simplestrap Layout)
+				$menu_item->desc = $menu->desc;
+				$menu_item->url = $menu->url;
+				
+				$menu_items[] = $menu_item;
+				unset($menu_item);
 			}
+			
+			$this->add('menu_list', $menu_items);
 		}
-		$this->add('results', $oMenuItems->data);
 	}
 	
 	function dispAppBasicInfo()
