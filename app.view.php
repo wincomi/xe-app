@@ -72,9 +72,6 @@ class appView extends app
 		$config = $oMemberModel->getMemberConfig();
 		$this->add('enable_join', $config->enable_join);
 		
-		// header (app module)
-		$this->add('user_login', 'Y');
-		
 		// socialxe
 		$socialxe_config = getModel('module')->getModuleConfig('socialxe');
 		if (!empty($socialxe_config))
