@@ -1,0 +1,40 @@
+<div class="x_page-header">
+	<h1>
+		{$lang->xe_viewer}
+		<a href="#descModule" class="x_icon-question-sign" data-toggle="#descModule">{$lang->help}</a>
+	</h1>
+</div>
+
+<p id="descModule" class="x_alert x_alert-info" hidden="hidden">{$lang->xe_viewer_desc}</p>
+
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == 'modules/krzip/tpl/config/1'" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<section class="section">
+	<form ruleset="saveConfig" class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="module" value="app" />
+		<input type="hidden" name="act" value="procAppAdminSaveConfig" />
+		<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+		<input type="hidden" name="xe_validator_id" value="modules/app/tpl/config/1" />
+		<section class="section">
+			<h1>{$lang->app_sitemap_config}</h1>
+			<div class="x_control-group">
+				<label class="x_control-label">{$lang->sitemap}</label>
+				<div id="menu_list" class="x_controls">
+					<select id="menu_srl" name="menu_srl">
+						<!--@foreach($menu_list as $val)-->
+							<option cond="$val->title != '__ADMINMENU_V17__'" value="{$val->menu_srl}"<!--@if($config->menu_srl == $val->menu_srl)--> selected<!--@end-->>{$val->title}</option>
+						<!--@end-->
+					</select>
+					<p class="x_help-block">{$lang->about_app_sitemap}</p>	
+				</div>
+			</div>
+		</section>
+		<div class="x_clearfix btnArea">
+			<div class="x_pull-right">
+				<button class="x_btn x_btn-primary" type="submit">{$lang->cmd_registration}</button>
+			</div>
+		</div>
+	</form>
+</section>

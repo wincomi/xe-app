@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+	<grants />
+	<permissions />
+	<actions>
+		<action name="dispAppSitemap" type="view" />
+		<action name="dispAppBasicInfo" type="view" />
+		<action name="dispAppMemberInfo" type="view" />
+		
+		<action name="dispAppAdminConfig" type="view" admin_index="true" standalone="true" />
+		<action name="procAppAdminSaveConfig" type="controller" ruleset="saveConfig" />
+	</actions>
+</module>
