@@ -90,18 +90,17 @@ class appView extends app
 		}
 	}
 	
-	function dispAppMemberInfo() {
+	function dispAppMemberInfo()
+	{
 		$oMemberModel = getModel('member');
 		$logged_info = Context::get('logged_info');
+		$is_logged = Context::get('is_logged');
 		
-		// Don't display member info to non-logged user
-		if(!$logged_info->member_srl) return $this->stop('msg_not_permitted');
-
-		$member_srl = Context::get('member_srl');
-		if(!$member_srl && Context::get('is_logged'))
+		if (!$is_logged)
 		{
-			$member_srl = $logged_info->member_srl;
+			return $this->stop('msg_not_permitted');
 		}
+
 		$results = [
 			'user_id' => $logged_info->user_id,
 			'email_address' => $logged_info->email_address,
