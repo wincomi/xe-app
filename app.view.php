@@ -18,10 +18,10 @@ class appView extends app
     
 	function dispAppSitemap()
 	{
-		$oModuleModel = &getModel('module');
+		$oModuleModel = getModel('module');
 		$config = $oModuleModel->getModuleConfig('app');
 	
-		$oMenuAdminModel = &getAdminModel('menu');
+		$oMenuAdminModel = getAdminModel('menu');
 		$menu_srl = $config->menu_srl;
 		$oMenuItems = $oMenuAdminModel->getMenuItems($menu_srl);
 		
@@ -29,10 +29,11 @@ class appView extends app
 		{
 			$this->add('menu_srl',$menu_srl);
 			
-			$menu_items = [];
+			$menu_items = array();
 			foreach ($oMenuItems->data as $key => $menu)
 			{
 				$moduleInfo = $oModuleModel->getModuleInfoByMenuItemSrl($menu->menu_item_srl);
+				$menu_item = new stdClass();
 				$menu_item->module = $moduleInfo->module;
 				
 				$menu_item->name = $menu->name; // explode('|fa-', $menu->name)[0]; (for Simplestrap Layout)
@@ -40,7 +41,6 @@ class appView extends app
 				$menu_item->url = $menu->url;
 				
 				$menu_items[] = $menu_item;
-				unset($menu_item);
 			}
 			
 			$this->add('menu_list', $menu_items);
@@ -52,6 +52,7 @@ class appView extends app
 		$db_info = Context::getDBInfo();
 		
 		// default_url
+		// TODO(Wincomi): check again
 		if(strpos($db_info->default_url, 'xn--') !== false)
 		{
 			$db_info->default_url = Context::decodeIdna($db_info->default_url);
@@ -60,8 +61,8 @@ class appView extends app
 		
 		// site_title
 		$oModuleModel = getModel('module');
-		$config = $oModuleModel->getModuleConfig('module');
-		$this->add('site_title', $config->siteTitle);
+		$module_config = $oModuleModel->getModuleConfig('module');
+		$this->add('site_title', $module_config->siteTitle);
 		
 		// languages
 		$this->add('lang_selected', Context::loadLangSelected());
@@ -73,19 +74,19 @@ class appView extends app
 		$this->add('mobicon_url', $mobicon_url.'?'.$_SERVER['REQUEST_TIME']);
 		
 		// member
-		$oMemberModel = &getModel('member');
-		$config = $oMemberModel->getMemberConfig();
-		$this->add('enable_join', $config->enable_join);
+		$oMemberModel = getModel('member');
+		$member_config = $oMemberModel->getMemberConfig();
+		$this->add('enable_join', $member_config->enable_join);
 		
 		// socialxe
-		$socialxe_config = getModel('module')->getModuleConfig('socialxe');
+		$socialxe_config = $oModuleModel->getModuleConfig('socialxe');
 		if (!empty($socialxe_config))
 		{
-			$dic = [
+			$dic = array(
 				"sns_services" => $socialxe_config->sns_services,
 				"sns_login" => $socialxe_config->sns_login,
 				"default_login" => $socialxe_config->default_login,
-			];
+			);
 			$this->add('socialxe', $dic);
 		}
 	}
@@ -101,13 +102,13 @@ class appView extends app
 			return $this->stop('msg_not_permitted');
 		}
 
-		$results = [
+		$results = array(
 			'user_id' => $logged_info->user_id,
 			'email_address' => $logged_info->email_address,
 			'nick_name' => $logged_info->nick_name,
 			'profile_image' => $logged_info->profile_image,
 			'menu_list' => $logged_info->menu_list,
-		];
+		);
 		$this->add('results', $results);
 	}
 }
