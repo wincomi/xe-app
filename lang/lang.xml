@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lang>
 	<item name="xe_viewer">
-		<value xml:lang="ko"><![CDATA[XE 뷰어 지원]]></value>
+		<value xml:lang="ko"><![CDATA[앱 지원]]></value>
 	</item>
 	<item name="xe_viewer_desc">
-		<value xml:lang="ko"><![CDATA[XE 기반의 사이트에서 XE 뷰어 앱을 사용할 수 있도록 하는 모듈입니다.]]></value>
+		<value xml:lang="ko"><![CDATA[XE 기반의 사이트에서 XE 뷰어 등의 앱을 사용할 수 있도록 json을 생성하는 모듈입니다.]]></value>
 	</item>
 	
 	<item name="app_sitemap_config">
 		<value xml:lang="ko"><![CDATA[사이트맵 설정]]></value>
 	</item>
 	<item name="about_app_sitemap">
-		<value xml:lang="ko"><![CDATA[선택한 사이트맵이 XE 뷰어 앱에서 표시됩니다.]]></value>
+		<value xml:lang="ko"><![CDATA[선택한 사이트맵이 앱에서 표시됩니다.]]></value>
 	</item>
 </lang>
